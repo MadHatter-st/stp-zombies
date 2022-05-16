@@ -27,6 +27,9 @@ public class Live {
     public void paint(Graphics g) {
         if(go) {
             g.drawImage(GO, (Zombies.Z_WIDTH-GO.getWidth(null))/2, (Zombies.Z_HEIGHT-GO.getHeight(null))/2, null);
+            g.setFont(font);
+            g.setColor(Color.GREEN);
+            g.drawString("Ваш счет:"+Integer.toString(money), Zombies.Z_WIDTH/2-100, Zombies.Z_HEIGHT-100);
         } else {
             for(int i=0; i<live; i++) {
                 g.drawImage(h, 30+i*35, 10, null);
@@ -45,10 +48,13 @@ public class Live {
     public void kill(){
         live--;
         go = live == 0;
-        money -= 300;
+        money -= 200;
+        money=money<0?0:money;
     }
     
     public void up() {
         money += 50;
     }
+
 }
+

@@ -24,7 +24,7 @@ public class Zombies extends JFrame implements ActionListener, KeyListener {
     
     public static final int Z_WIDTH  = 800;
     public static final int Z_HEIGHT = 500;
-    
+
 //    Image fon;
     
     int maxCount = 3;
@@ -32,6 +32,8 @@ public class Zombies extends JFrame implements ActionListener, KeyListener {
     int interval = 10;
     boolean flock = false;
     int iteration = 0;
+
+    boolean end = false;
     
     ArrayList<Zombi> zombis = new ArrayList<>();
     
@@ -48,13 +50,19 @@ public class Zombies extends JFrame implements ActionListener, KeyListener {
             g.drawImage(fon, 0, 0, null);
             player.paint(g);
             for(int i=0; i<zombis.size(); i++) {
-                if(zombis.get(i).x < -100)  {
+                if(zombis.get(i).x < 0)  {
                     zombis.remove(i);
                     live.kill();
-                    if(live.live == 0) timer.stop();
+                    if(live.live == 0) {
+                        end = true;
+                        live.live=5;
+                        timer.stop();
+                        zombis.clear();
+                    }
                     i--; continue;
-                }
+                }if(live.live!=0){
                 zombis.get(i).paint(g);
+                }
             }
             live.paint(g);
         }
@@ -62,21 +70,22 @@ public class Zombies extends JFrame implements ActionListener, KeyListener {
 
     public Zombies() {
         setTitle("Zombies!");
-        timer.start();
+
         fon.createGraphics().drawImage(new ImageIcon(getClass().getResource("/image/fon.jpg")).getImage(),0,0,null);
         fonPanel.setPreferredSize(new Dimension(Z_WIDTH, Z_HEIGHT));
+        timer.start();
         setContentPane(fonPanel);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addKeyListener(this);
         pack();
-        
     }
 
     
 
     
     public static void main(String[] args) {
+
         Zombies zombies = new Zombies();
         zombies.setVisible(true);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -92,7 +101,6 @@ public class Zombies extends JFrame implements ActionListener, KeyListener {
             Random r = new Random();
             int count = r.nextInt(maxCount);
             for(int i=0; i<count; i++) {
-                
                 Zombi z = new Zombi(this, Z_WIDTH);
                 z.spid = 10+r.nextInt(maxSpeed);
                 z.pIndex = r.nextInt(3);
@@ -138,13 +146,15 @@ public class Zombies extends JFrame implements ActionListener, KeyListener {
                 player.fire();
                 fire(player.pIndex);
                 break;
+            case KeyEvent.VK_S:
+                player.ult();
+                break;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch(e.getKeyCode()) {
-
             case KeyEvent.VK_SPACE:
                 flock = false;
         }

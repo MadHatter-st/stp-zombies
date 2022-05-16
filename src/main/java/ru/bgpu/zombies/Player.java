@@ -9,6 +9,8 @@ import javax.swing.ImageIcon;
 public class Player {
     
     Image fon = new ImageIcon(getClass().getResource("/image/player.png")).getImage();
+
+    Image fon1 = new ImageIcon(getClass().getResource("/image/player-m-0.png")).getImage();
     Image f1 = new ImageIcon(getClass().getResource("/image/fire1.png")).getImage();
     Image f2 = new ImageIcon(getClass().getResource("/image/fire2.png")).getImage();
     Image f3 = new ImageIcon(getClass().getResource("/image/fire3.png")).getImage();
@@ -18,6 +20,8 @@ public class Player {
     
     int pIndex = 0;
     boolean lock = false;
+
+    boolean max = false;
     int fireIndex = -1;
     
     Zombies zombies;
@@ -25,21 +29,23 @@ public class Player {
     public Player(Zombies zombies) {
         this.zombies = zombies;
     }
-    
-    
-    
+
+
     public void paint(Graphics g) {
-        g.drawImage(fon, 50, pozitions[pIndex], null);
-        if(fireIndex >= 0) {
-            if(fireIndex >= fire.length) {
-                fireIndex = -1;
-                lock = false;
-            } else {
-                g.drawImage(fire[fireIndex++], 50, pozitions[pIndex], null);
+        if (max) {
+            g.drawImage(fon1, 50, pozitions[pIndex], null);
+        } else {
+            g.drawImage(fon, 50, pozitions[pIndex], null);
+        }
+            if (fireIndex >= 0) {
+                if (fireIndex >= fire.length) {
+                    fireIndex = -1;
+                    lock = false;
+                } else {
+                    g.drawImage(fire[fireIndex++], 50, pozitions[pIndex], null);
             }
         }
     }
-    
     public void up() {
         if(lock) return;
         if(--pIndex < 0) pIndex = 0;
@@ -56,4 +62,14 @@ public class Player {
         lock = true;
         fireIndex = 0;
     }
+
+    public void ult() {
+        if(lock) return;
+        max=true;
+        if(zombies.end){
+            zombies.timer.start();
+            zombies.live.go=false;
+        }
+    }
+
 }
