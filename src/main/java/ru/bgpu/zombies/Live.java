@@ -30,17 +30,18 @@ public class Live {
             g.setFont(font);
             g.setColor(Color.GREEN);
             g.drawString("Ваш счет:"+Integer.toString(money), Zombies.Z_WIDTH/2-100, Zombies.Z_HEIGHT-100);
+            g.drawString("Нажмите 's' для продолжения", Zombies.Z_WIDTH/2-100, Zombies.Z_HEIGHT-50);
         } else {
             for(int i=0; i<live; i++) {
                 g.drawImage(h, 30+i*35, 10, null);
             }
-        }
         g.drawImage(d, Zombies.Z_WIDTH-200, 10, null);
         g.setFont(font);
         g.setColor(Color.GREEN);
         g.drawString(Integer.toString(money), Zombies.Z_WIDTH-150, 37);
         if(++iteration == interval) {
             money++;
+            }
         }
         iteration %= interval;
     }

@@ -66,9 +66,22 @@ public class Player {
     public void ult() {
         if(lock) return;
         max=true;
+        Zombies.playSound("ultimate.wav");
         if(zombies.end){
-            zombies.timer.start();
+            zombies.start_timer.restart();
             zombies.live.go=false;
+        }
+    }
+
+    public void pause() {
+        if(lock) return;
+        if(zombies.stop){
+            zombies.start_timer.start();
+            zombies.stop=false;
+        }
+        else{
+            zombies.start_timer.stop();
+            zombies.stop=true;
         }
     }
 
