@@ -39,7 +39,7 @@ public class Zombies extends JFrame implements ActionListener, KeyListener {
 
 //    boolean start_timer = true;
 
-    public enum STATE{MENU,PLAY};
+    public enum STATE{MENU,PLAY,GO,PAUSE};
     public static STATE state = STATE.MENU;
     Player player = new Player(this);
     Live  live = new Live();
@@ -49,35 +49,41 @@ public class Zombies extends JFrame implements ActionListener, KeyListener {
     JPanel fonPanel = new JPanel() {
         @Override
         public void paint(Graphics g) {
-            if(state.equals(STATE.PLAY))
-            {
-                if(!stop){
-                    g.drawImage(fon, 0, 0, null);
-                    player.paint(g);
-                    for (int i = 0; i < zombis.size(); i++) {
-                        if (zombis.get(i).x < 0) {
-                            zombis.remove(i);
-                            live.kill();
-                            if (live.live == 0) {
-                                end = true;
-                                live.live = 5;
-                                zombis.clear();
+            if (!state.equals(STATE.GO)) {
+                if (state.equals(STATE.PLAY)) {
+                    if (!stop) {
+                        g.drawImage(fon, 0, 0, null);
+                        player.paint(g);
+                        for (int i = 0; i < zombis.size(); i++) {
+                            if (zombis.get(i).x < 0) {
+                                zombis.remove(i);
+                                live.kill();
+                                if (live.live == 0) {
+                                    end = true;
+                                    live.live = 5;
+                                    zombis.clear();
+                                    state = STATE.GO;
+                                }
+                                i--;
+                                continue;
                             }
-                            i--;
-                            continue;
+                            if (live.live != 0) {
+                                zombis.get(i).paint(g);
+                            }
                         }
-                        if (live.live != 0) {
-                            zombis.get(i).paint(g);
-                        }
+                        live.paint(g);
+                    } else {
+                        timer.stop();
                     }
-                    live.paint(g);
+                } else {
+                    g.drawImage(fon, 0, 0, null);
+                    g.setColor(Color.RED);
+                    g.setFont(new Font("Bauhaus 93", Font.ITALIC, 50));
+                    g.drawString("Press 'Enter' to start", Zombies.Z_WIDTH / 2 - 200, Zombies.Z_HEIGHT / 2);
                 }
-                else{
-                    timer.stop();
-                }
-            }else {
-                g.drawImage(fon, 0, 0, null);
-                g.drawString("Нажмите 'Enter' для начала", Zombies.Z_WIDTH/2, Zombies.Z_HEIGHT/2);
+            }
+            else{
+                timer.stop();
             }
         }
     };
@@ -171,6 +177,9 @@ public class Zombies extends JFrame implements ActionListener, KeyListener {
             case KeyEvent.VK_ENTER:
                 state=STATE.PLAY;
                 timer.start();
+                if(end){
+                    live.go=false;
+                }
                 break;
         }
     }

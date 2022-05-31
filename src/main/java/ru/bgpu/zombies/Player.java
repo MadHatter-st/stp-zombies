@@ -65,9 +65,6 @@ public class Player {
     public void ult() {
         if(lock) return;
         max=true;
-        if(zombies.end){
-            zombies.live.go=false;
-        }
     }
 
     public void pause() {
