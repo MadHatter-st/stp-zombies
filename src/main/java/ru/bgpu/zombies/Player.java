@@ -20,7 +20,6 @@ public class Player {
     
     int pIndex = 0;
     boolean lock = false;
-
     boolean max = false;
     int fireIndex = -1;
     
@@ -66,9 +65,7 @@ public class Player {
     public void ult() {
         if(lock) return;
         max=true;
-        Zombies.playSound("ultimate.wav");
         if(zombies.end){
-            zombies.start_timer.restart();
             zombies.live.go=false;
         }
     }
@@ -76,11 +73,10 @@ public class Player {
     public void pause() {
         if(lock) return;
         if(zombies.stop){
-            zombies.start_timer.start();
             zombies.stop=false;
+            zombies.timer.start();
         }
         else{
-            zombies.start_timer.stop();
             zombies.stop=true;
         }
     }
