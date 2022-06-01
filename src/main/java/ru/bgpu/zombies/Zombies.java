@@ -24,7 +24,8 @@ public class Zombies extends JFrame implements ActionListener, KeyListener {
     public static final int Z_HEIGHT = 500;
 
 //    Image fon;
-    
+public final static int pozitions[] = {150, 250, 350};
+    int pIndex = 0;
     int maxCount = 3;
     int maxSpeed = 15;
     int interval = 10;
@@ -35,6 +36,7 @@ public class Zombies extends JFrame implements ActionListener, KeyListener {
 
     ArrayList<Zombi> zombis = new ArrayList<>();
 
+    Menu menu = new Menu(this);
     Timer timer = new Timer(100, this);
 
 //    boolean start_timer = true;
@@ -49,41 +51,36 @@ public class Zombies extends JFrame implements ActionListener, KeyListener {
     JPanel fonPanel = new JPanel() {
         @Override
         public void paint(Graphics g) {
-            if (!state.equals(STATE.GO)) {
-                if (state.equals(STATE.PLAY)) {
-                    if (!stop) {
-                        g.drawImage(fon, 0, 0, null);
-                        player.paint(g);
-                        for (int i = 0; i < zombis.size(); i++) {
-                            if (zombis.get(i).x < 0) {
-                                zombis.remove(i);
-                                live.kill();
-                                if (live.live == 0) {
-                                    end = true;
-                                    live.live = 5;
-                                    zombis.clear();
-                                    state = STATE.GO;
-                                }
-                                i--;
-                                continue;
-                            }
-                            if (live.live != 0) {
-                                zombis.get(i).paint(g);
-                            }
-                        }
-                        live.paint(g);
-                    } else {
-                        timer.stop();
-                    }
-                } else {
+            switch (state) {
+                case PLAY:
                     g.drawImage(fon, 0, 0, null);
-                    g.setColor(Color.RED);
-                    g.setFont(new Font("Bauhaus 93", Font.ITALIC, 50));
-                    g.drawString("Press 'Enter' to start", Zombies.Z_WIDTH / 2 - 200, Zombies.Z_HEIGHT / 2);
-                }
-            }
-            else{
-                timer.stop();
+                    player.paint(g);
+                    for (int i = 0; i < zombis.size(); i++) {
+                        if (zombis.get(i).x < 0) {
+                            zombis.remove(i);
+                            live.kill();
+                            if (live.live == 0) {
+                                end = true;
+                                live.live = 5;
+                                zombis.clear();
+                                state = STATE.GO;
+                            }
+                            i--;
+                            continue;
+                        }
+                        if (live.live != 0) {
+                            zombis.get(i).paint(g);
+                        }
+                    }
+                    live.paint(g);
+                    break;
+                case MENU:
+                    live.go = false;
+                    menu.paint(g);
+                    break;
+                case GO:
+                    fonPanel.repaint();
+                    break;
             }
         }
     };
@@ -113,24 +110,25 @@ public class Zombies extends JFrame implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(state.equals(STATE.PLAY)) {
-            fonPanel.repaint();
-            if (iteration++ > interval) {
-                Random r = new Random();
-                int count = r.nextInt(maxCount);
-                for (int i = 0; i < count; i++) {
-                    Zombi z = new Zombi(this, Z_WIDTH);
-                    z.spid = 10 + r.nextInt(maxSpeed);
-                    z.pIndex = r.nextInt(3);
-                    zombis.add(z);
+        switch (state) {
+            case PLAY:
+                fonPanel.repaint();
+                if (iteration++ > interval) {
+                    Random r = new Random();
+                    int count = r.nextInt(maxCount);
+                    for (int i = 0; i < count; i++) {
+                        Zombi z = new Zombi(this, Z_WIDTH);
+                        z.spid = 10 + r.nextInt(maxSpeed);
+                        z.pIndex = r.nextInt(3);
+                        zombis.add(z);
+                    }
+                    iteration = 0;
                 }
-                iteration = 0;
-            }
+                break;
+            case MENU:
+                fonPanel.repaint();
+                break;
         }
-        else if(state.equals(STATE.MENU)){
-            timer.stop();
-        }
-        
     }
     
     
@@ -157,28 +155,61 @@ public class Zombies extends JFrame implements ActionListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         switch(e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                player.up();
+                switch (state){
+                    case PLAY:player.up();
+                        break;
+                    case MENU:
+                            menu.up();
+                        break;
+                }
                 break;
             case KeyEvent.VK_DOWN:
-                player.down();
+                switch (state){
+                    case PLAY:
+                        player.down();
+                        break;
+                    case MENU:
+                        menu.down();
+                        break;
+                }
                 break;
             case KeyEvent.VK_SPACE:
-                if(flock) break;
-                flock = true;
-                player.fire();
-                fire(player.pIndex);
+                switch (state){
+                    case PLAY:
+                        if(flock) break;
+                        flock = true;
+                        player.fire();
+                        fire(player.pIndex);
+                        break;
+                }
                 break;
             case KeyEvent.VK_S:
-                player.ult();
+                switch (state){
+                    case PLAY:
+                        player.ult();
+                        break;
+                }
                 break;
             case KeyEvent.VK_ESCAPE:
-                player.pause();
+                switch (state){
+                    case PLAY:
+                        player.pause();
+                        break;
+                }
                 break;
             case KeyEvent.VK_ENTER:
-                state=STATE.PLAY;
-                timer.start();
-                if(end){
-                    live.go=false;
+                switch (state){
+                    case PLAY:
+                        break;
+                    case MENU:
+                        menu.choise();
+                        break;
+                    case GO:
+                        state = STATE.MENU;
+//                        if(end){
+//                            live.go=false;
+//                        }
+                        break;
                 }
                 break;
         }

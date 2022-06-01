@@ -75,6 +75,7 @@ public class Player {
         }
         else{
             zombies.stop=true;
+            zombies.timer.stop();
         }
     }
 

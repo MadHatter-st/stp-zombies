@@ -25,7 +25,7 @@ public class Live {
     
     
     public void paint(Graphics g) {
-        if(go) {
+        if(go){
             g.drawImage(GO, (Zombies.Z_WIDTH-GO.getWidth(null))/2, (Zombies.Z_HEIGHT-GO.getHeight(null))/2, null);
             g.setFont(font);
             g.setColor(Color.GREEN);
