@@ -17,6 +17,8 @@ public class Live {
     boolean go = false;
     int live = 5;
     int money = 0;
+
+    int charge = 0;
     
     Font font = new Font(Font.DIALOG, Font.BOLD,30);
     
@@ -39,6 +41,8 @@ public class Live {
         g.setFont(font);
         g.setColor(Color.GREEN);
         g.drawString(Integer.toString(money), Zombies.Z_WIDTH-150, 37);
+        g.setColor(Color.YELLOW);
+        g.drawString(Integer.toString(charge), Zombies.Z_WIDTH-250, 37);
         if(++iteration == interval) {
             money++;
             }
