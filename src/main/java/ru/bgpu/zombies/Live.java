@@ -54,7 +54,7 @@ public class Live {
     }
     
     public void up() {
-        money += 50;
+        money += 100/3;
     }
 
 }

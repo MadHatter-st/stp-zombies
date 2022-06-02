@@ -214,6 +214,13 @@ public final static int pozitions[] = {150, 250, 350};
         }
     }
 
+    public void boom(){
+        for (int i =0; i<zombis.size();i++){
+            live.up();
+        }
+        zombis.clear();
+    }
+
     @Override
     public void keyReleased(KeyEvent e) {
         switch(e.getKeyCode()) {
