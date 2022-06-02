@@ -7,8 +7,8 @@ import java.awt.event.ActionListener;
 
 public class Menu implements ActionListener {
 
-    Image player = new ImageIcon(getClass().getResource("/image/player.png")).getImage();
-    Image fon = new ImageIcon(getClass().getResource("/image/fon.jpg")).getImage();
+    Image hand = new ImageIcon(getClass().getResource("/image/hand.png")).getImage();
+    Image fon = new ImageIcon(getClass().getResource("/image/fon1.jpg")).getImage();
     public final static int pozitions[] = {150, 250, 350};
     int pIndex = 0;
     Zombies zombies;
@@ -26,10 +26,10 @@ public class Menu implements ActionListener {
         g.setColor(Color.RED);
         g.setFont(new Font("Bauhaus 93", Font.ITALIC, 50));
         g.drawString("Zombies ATACK!!!", Zombies.Z_WIDTH / 2 - 200, Zombies.Z_HEIGHT / 2 - 200);
-        g.drawImage(player, 50, pozitions[pIndex], null);
-        g.drawString(options[0], 100, pozitions[0]);
-        g.drawString(options[1], 100, pozitions[1]);
-        g.drawString(options[2], 100, pozitions[2]);
+        g.drawImage(hand, 50, pozitions[pIndex]-50, null);
+        g.drawString(options[0], 150, pozitions[0]);
+        g.drawString(options[1], 150, pozitions[1]);
+        g.drawString(options[2], 150, pozitions[2]);
 
 
     }

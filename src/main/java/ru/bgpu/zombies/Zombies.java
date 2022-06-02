@@ -34,6 +34,8 @@ public final static int pozitions[] = {150, 250, 350};
     boolean end = false;
     boolean stop = false;
 
+    int stage = 1;
+
     ArrayList<Zombi> zombis = new ArrayList<>();
 
     Menu menu = new Menu(this);
@@ -89,7 +91,7 @@ public final static int pozitions[] = {150, 250, 350};
     public Zombies(int a) {
         setTitle("Zombies!");
         timer.start();
-        fon.createGraphics().drawImage(new ImageIcon(getClass().getResource("/image/fon.jpg")).getImage(),0,0,null);
+        fon.createGraphics().drawImage(new ImageIcon(getClass().getResource("/image/fon"+stage+".jpg")).getImage(),0,0,null);
         setContentPane(fonPanel);
         fonPanel.setPreferredSize(new Dimension(Z_WIDTH, Z_HEIGHT));
         setResizable(false);
@@ -206,9 +208,6 @@ public final static int pozitions[] = {150, 250, 350};
                         break;
                     case GO:
                         state = STATE.MENU;
-//                        if(end){
-//                            live.go=false;
-//                        }
                         break;
                 }
                 break;
