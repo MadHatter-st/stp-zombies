@@ -64,7 +64,7 @@ public class Player {
 
     public void ult() {
         if(lock) return;
-        max=true;
+//        max=true;
         zombies.boom();
     }
 
@@ -72,11 +72,9 @@ public class Player {
         if(lock) return;
         if(zombies.stop){
             zombies.stop=false;
-            zombies.timer.start();
         }
         else{
             zombies.stop=true;
-            zombies.timer.stop();
         }
     }
 

@@ -154,7 +154,7 @@ public final static int pozitions[] = {150, 250, 350};
             }
         }
         if(index != -1) {
-            if(live.charge<5){
+            if(live.charge<10){
                 live.charge++;
             }
             zombis.get(index).fire();
@@ -233,7 +233,7 @@ public final static int pozitions[] = {150, 250, 350};
     }
 
     public void boom(){
-        if(live.charge==5){
+        if(live.charge==10){
             for (int i =0; i<zombis.size();i++){
                 live.up();
             }

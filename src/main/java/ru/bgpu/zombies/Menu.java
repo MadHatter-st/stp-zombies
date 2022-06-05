@@ -37,8 +37,14 @@ public class Menu implements ActionListener {
     public void choise(){
         switch (pIndex){
             case 0:
-                Zombies.state = Zombies.STATE.PLAY;
                 zombies.timer.restart();
+                zombies.zombis.clear();
+                zombies.player.pIndex = 0;
+                zombies.live.live = 5;
+                zombies.live.charge = 0;
+                zombies.live.money = 0;
+                Zombies.state = Zombies.STATE.PLAY;
+
                 break;
             case 2:
                 System.exit(0);
