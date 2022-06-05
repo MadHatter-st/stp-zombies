@@ -13,7 +13,7 @@ public class Menu implements ActionListener {
     int pIndex = 0;
     Zombies zombies;
 
-    String options[] = {"Play","Coming soon","Exit"};
+    String options[] = {"Play","Prizes","Exit"};
 
     Timer timer = new Timer(100, this);
 
@@ -44,7 +44,9 @@ public class Menu implements ActionListener {
                 zombies.live.charge = 0;
                 zombies.live.money = 0;
                 Zombies.state = Zombies.STATE.PLAY;
-
+                break;
+            case 1:
+                Zombies.state = Zombies.STATE.PRIZES;
                 break;
             case 2:
                 System.exit(0);

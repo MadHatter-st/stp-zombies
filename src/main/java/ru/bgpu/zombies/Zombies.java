@@ -40,12 +40,15 @@ public final static int pozitions[] = {150, 250, 350};
 
     Menu menu = new Menu(this);
 
+    Prizes prizes = new Prizes(this);
     Pause pause = new Pause(this);
+
+    Go go = new Go(this);
     Timer timer = new Timer(100, this);
 
 //    boolean start_timer = true;
 
-    public enum STATE{MENU,PLAY,GO,PAUSE};
+    public enum STATE{MENU,PLAY,GO,PAUSE,PRIZES};
     public static STATE state = STATE.MENU;
     Player player = new Player(this);
     Live  live = new Live();
@@ -67,6 +70,8 @@ public final static int pozitions[] = {150, 250, 350};
                                 end = true;
                                 live.live = 5;
                                 zombis.clear();
+                                prizes.globalMoney+=live.money;
+                                go.money = live.money;
                                 state = STATE.GO;
                             }
                             i--;
@@ -82,11 +87,14 @@ public final static int pozitions[] = {150, 250, 350};
                     live.go = false;
                     menu.paint(g);
                     break;
-                case GO:
-                    fonPanel.repaint();
-                    break;
                 case PAUSE:
                     pause.paint(g);
+                    break;
+                case PRIZES:
+                    prizes.paint(g);
+                    break;
+                case GO:
+                    go.paint(g);
                     break;
             }
         }
@@ -138,6 +146,12 @@ public final static int pozitions[] = {150, 250, 350};
             case PAUSE:
                 fonPanel.repaint();
                 break;
+            case PRIZES:
+                fonPanel.repaint();
+                break;
+            case GO:
+                fonPanel.repaint();
+                break;
         }
     }
     
@@ -169,10 +183,14 @@ public final static int pozitions[] = {150, 250, 350};
         switch(e.getKeyCode()) {
             case KeyEvent.VK_UP:
                 switch (state){
-                    case PLAY:player.up();
+                    case PLAY:
+                        player.up();
                         break;
                     case MENU:
-                            menu.up();
+                        menu.up();
+                        break;
+                    case PRIZES:
+                        prizes.up();
                         break;
                     case PAUSE:
                         pause.up();
@@ -185,6 +203,9 @@ public final static int pozitions[] = {150, 250, 350};
                         break;
                     case MENU:
                         menu.down();
+                        break;
+                    case PRIZES:
+                        prizes.down();
                         break;
                     case PAUSE:
                         pause.down();
@@ -227,6 +248,8 @@ public final static int pozitions[] = {150, 250, 350};
                         break;
                     case PAUSE:
                         pause.choise();
+                    case PRIZES:
+                        prizes.choise();
                 }
                 break;
         }

@@ -28,11 +28,6 @@ public class Live {
     
     public void paint(Graphics g) {
         if(go){
-            g.drawImage(GO, (Zombies.Z_WIDTH-GO.getWidth(null))/2, (Zombies.Z_HEIGHT-GO.getHeight(null))/2, null);
-            g.setFont(font);
-            g.setColor(Color.RED);
-            g.drawString("Ваш счет:"+Integer.toString(money), Zombies.Z_WIDTH/2-200, Zombies.Z_HEIGHT-100);
-            g.drawString("Нажмите 'Enter' выхода в меню", Zombies.Z_WIDTH/2-200, Zombies.Z_HEIGHT-50);
         } else {
             for(int i=0; i<live; i++) {
                 g.drawImage(h, 30+i*35, 10, null);
