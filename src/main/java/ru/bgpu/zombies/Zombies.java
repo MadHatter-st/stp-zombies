@@ -39,6 +39,8 @@ public final static int pozitions[] = {150, 250, 350};
     ArrayList<Zombi> zombis = new ArrayList<>();
 
     Menu menu = new Menu(this);
+
+    Pause pause = new Pause(this);
     Timer timer = new Timer(100, this);
 
 //    boolean start_timer = true;
@@ -82,6 +84,9 @@ public final static int pozitions[] = {150, 250, 350};
                     break;
                 case GO:
                     fonPanel.repaint();
+                    break;
+                case PAUSE:
+                    pause.paint(g);
                     break;
             }
         }
@@ -130,6 +135,9 @@ public final static int pozitions[] = {150, 250, 350};
             case MENU:
                 fonPanel.repaint();
                 break;
+            case PAUSE:
+                fonPanel.repaint();
+                break;
         }
     }
     
@@ -166,6 +174,8 @@ public final static int pozitions[] = {150, 250, 350};
                     case MENU:
                             menu.up();
                         break;
+                    case PAUSE:
+                        pause.up();
                 }
                 break;
             case KeyEvent.VK_DOWN:
@@ -176,6 +186,8 @@ public final static int pozitions[] = {150, 250, 350};
                     case MENU:
                         menu.down();
                         break;
+                    case PAUSE:
+                        pause.down();
                 }
                 break;
             case KeyEvent.VK_SPACE:
@@ -198,6 +210,7 @@ public final static int pozitions[] = {150, 250, 350};
             case KeyEvent.VK_ESCAPE:
                 switch (state){
                     case PLAY:
+                        state = STATE.PAUSE;
                         player.pause();
                         break;
                 }
@@ -212,6 +225,8 @@ public final static int pozitions[] = {150, 250, 350};
                     case GO:
                         state = STATE.MENU;
                         break;
+                    case PAUSE:
+                        pause.choise();
                 }
                 break;
         }

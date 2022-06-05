@@ -5,32 +5,30 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Menu implements ActionListener {
+public class Pause implements ActionListener {
 
     Image hand = new ImageIcon(getClass().getResource("/image/hand.png")).getImage();
     Image fon = new ImageIcon(getClass().getResource("/image/fon1.jpg")).getImage();
-    public final static int pozitions[] = {150, 250, 350};
+    public final static int pozitions[] = {150, 250};
     int pIndex = 0;
     Zombies zombies;
 
-    String options[] = {"Play","Coming soon","Exit"};
+    String options[] = {"Continue","Exit to menu"};
 
     Timer timer = new Timer(100, this);
 
-    public Menu(Zombies zombies) {
+    public Pause(Zombies zombies) {
         this.zombies = zombies;
     }
 
     public void paint(Graphics g) {
         g.drawImage(fon, 0, 0, null);
         g.setColor(Color.RED);
-        g.setFont(new Font("namd", Font.ITALIC, 50));
-        g.drawString("Zombies ATACK!!!", Zombies.Z_WIDTH / 2 - 200, Zombies.Z_HEIGHT / 2 - 200);
+        g.setFont(new Font("name", Font.ITALIC, 50));
+        g.drawString("Game in a pause", Zombies.Z_WIDTH / 2 - 200, Zombies.Z_HEIGHT / 2 - 200);
         g.drawImage(hand, 50, pozitions[pIndex]-50, null);
         g.drawString(options[0], 150, pozitions[0]);
         g.drawString(options[1], 150, pozitions[1]);
-        g.drawString(options[2], 150, pozitions[2]);
-
 
     }
 
@@ -38,10 +36,10 @@ public class Menu implements ActionListener {
         switch (pIndex){
             case 0:
                 Zombies.state = Zombies.STATE.PLAY;
-                zombies.timer.restart();
+                zombies.timer.start();
                 break;
-            case 2:
-                System.exit(0);
+            case 1:
+                Zombies.state = Zombies.STATE.MENU;
         }
     }
     public void up() {
@@ -57,3 +55,4 @@ public class Menu implements ActionListener {
 
     }
 }
+
