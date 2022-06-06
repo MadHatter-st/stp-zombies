@@ -9,8 +9,11 @@ public class Pause implements ActionListener {
 
     Image hand = new ImageIcon(getClass().getResource("/image/hand.png")).getImage();
     Image fon = new ImageIcon(getClass().getResource("/image/fon0.jpg")).getImage();
+    Image fon1 = new ImageIcon(getClass().getResource("/image/fon1.jpg")).getImage();
     public final static int pozitions[] = {150, 250};
     int pIndex = 0;
+
+    int back = 0;
     Zombies zombies;
 
     String options[] = {"Continue","Exit to menu"};
@@ -22,7 +25,11 @@ public class Pause implements ActionListener {
     }
 
     public void paint(Graphics g) {
-        g.drawImage(fon, 0, 0, null);
+        if(back==0){
+            g.drawImage(fon, 0, 0, null);
+        }else {
+            g.drawImage(fon1, 0, 0, null);
+        }
         g.setColor(Color.RED);
         g.setFont(new Font("name", Font.ITALIC, 50));
         g.drawString("Game in a pause", Zombies.Z_WIDTH / 2 - 200, Zombies.Z_HEIGHT / 2 - 200);

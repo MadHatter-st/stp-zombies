@@ -56,13 +56,18 @@ public final static int pozitions[] = {150, 250, 350};
     Live  live = new Live();
     
     BufferedImage fon = new BufferedImage(Z_WIDTH, Z_HEIGHT, BufferedImage.TYPE_INT_RGB);
+    BufferedImage fon1 = new BufferedImage(Z_WIDTH, Z_HEIGHT, BufferedImage.TYPE_INT_RGB);
 
     JPanel fonPanel = new JPanel() {
         @Override
         public void paint(Graphics g) {
             switch (state) {
                 case PLAY:
-                    g.drawImage(fon, 0, 0, null);
+                    if(stage==0){
+                        g.drawImage(fon, 0, 0, null);
+                    }else {
+                        g.drawImage(fon1, 0, 0, null);
+                    }
                     player.max=Player;
                     player.paint(g);
                     for (int i = 0; i < zombis.size(); i++) {
@@ -88,9 +93,11 @@ public final static int pozitions[] = {150, 250, 350};
                     break;
                 case MENU:
                     live.go = false;
+                    menu.back = stage;
                     menu.paint(g);
                     break;
                 case PAUSE:
+                    pause.back = stage;
                     pause.paint(g);
                     break;
                 case PRIZES:
@@ -107,7 +114,8 @@ public final static int pozitions[] = {150, 250, 350};
     public Zombies() {
         setTitle("Zombies!");
         timer.start();
-        fon.createGraphics().drawImage(new ImageIcon(getClass().getResource("/image/fon"+stage+".jpg")).getImage(),0,0,null);
+        fon.createGraphics().drawImage(new ImageIcon(getClass().getResource("/image/fon"+0+".jpg")).getImage(),0,0,null);
+        fon1.createGraphics().drawImage(new ImageIcon(getClass().getResource("/image/fon"+1+".jpg")).getImage(),0,0,null);
         setContentPane(fonPanel);
         fonPanel.setPreferredSize(new Dimension(Z_WIDTH, Z_HEIGHT));
         setResizable(false);

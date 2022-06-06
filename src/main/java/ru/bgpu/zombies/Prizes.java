@@ -13,7 +13,8 @@ public class Prizes implements ActionListener {
     int Pskin = 0;
     int Pback = 0;
     Image hand = new ImageIcon(getClass().getResource("/image/hand.png")).getImage();
-    Image fon = new ImageIcon(getClass().getResource("/image/fon"+Pback+".jpg")).getImage();
+    Image fon = new ImageIcon(getClass().getResource("/image/fon"+0+".jpg")).getImage();
+    Image fon1 = new ImageIcon(getClass().getResource("/image/fon"+1+".jpg")).getImage();
 
     public final static int pozitions[] = {150, 250, 450};
 
@@ -36,7 +37,11 @@ public class Prizes implements ActionListener {
     }
 
     public void paint(Graphics g) {
-        g.drawImage(fon, 0, 0, null);
+        if(Pback==0){
+            g.drawImage(fon, 0, 0, null);
+        }else {
+            g.drawImage(fon1, 0, 0, null);
+        }
         g.setColor(Color.RED);
         g.setFont(new Font("name", Font.ITALIC, 50));
         g.drawString("Prizes", Zombies.Z_WIDTH / 2 - 200, Zombies.Z_HEIGHT / 2 - 200);
