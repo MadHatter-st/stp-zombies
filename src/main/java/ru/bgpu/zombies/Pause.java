@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class Pause implements ActionListener {
 
     Image hand = new ImageIcon(getClass().getResource("/image/hand.png")).getImage();
-    Image fon = new ImageIcon(getClass().getResource("/image/fon1.jpg")).getImage();
+    Image fon = new ImageIcon(getClass().getResource("/image/fon0.jpg")).getImage();
     public final static int pozitions[] = {150, 250};
     int pIndex = 0;
     Zombies zombies;

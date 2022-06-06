@@ -11,7 +11,7 @@ public class Go implements ActionListener {
 
 
 //    Image hand = new ImageIcon(getClass().getResource("/image/hand.png")).getImage();
-    Image fon = new ImageIcon(getClass().getResource("/image/fon1.jpg")).getImage();
+    Image fon = new ImageIcon(getClass().getResource("/image/fon0.jpg")).getImage();
     Image GO = new ImageIcon(getClass().getResource("/image/go.png")).getImage();
     Image h = new ImageIcon(getClass().getResource("/image/h.png")).getImage();
     Image d = new ImageIcon(getClass().getResource("/image/d.png")).getImage();

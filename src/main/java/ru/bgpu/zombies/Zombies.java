@@ -34,7 +34,9 @@ public final static int pozitions[] = {150, 250, 350};
     boolean end = false;
     boolean stop = false;
 
-    int stage = 1;
+
+    int stage = 0;
+    int Player = 0;
 
     ArrayList<Zombi> zombis = new ArrayList<>();
 
@@ -61,6 +63,7 @@ public final static int pozitions[] = {150, 250, 350};
             switch (state) {
                 case PLAY:
                     g.drawImage(fon, 0, 0, null);
+                    player.max=Player;
                     player.paint(g);
                     for (int i = 0; i < zombis.size(); i++) {
                         if (zombis.get(i).x < 0) {
@@ -101,7 +104,7 @@ public final static int pozitions[] = {150, 250, 350};
     };
 
 
-    public Zombies(int a) {
+    public Zombies() {
         setTitle("Zombies!");
         timer.start();
         fon.createGraphics().drawImage(new ImageIcon(getClass().getResource("/image/fon"+stage+".jpg")).getImage(),0,0,null);
@@ -115,7 +118,7 @@ public final static int pozitions[] = {150, 250, 350};
     }
 
     public static void main(String[] args) {
-        Zombies zombies = new Zombies(2);
+        Zombies zombies = new Zombies();
         zombies.setVisible(true);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) screenSize.getWidth();

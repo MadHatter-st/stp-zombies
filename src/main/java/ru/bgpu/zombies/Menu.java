@@ -7,19 +7,19 @@ import java.awt.event.ActionListener;
 
 public class Menu implements ActionListener {
 
+    Zombies zombies;
+    public Menu(Zombies zombies) {
+        this.zombies = zombies;
+    }
+    int back = 0;
     Image hand = new ImageIcon(getClass().getResource("/image/hand.png")).getImage();
-    Image fon = new ImageIcon(getClass().getResource("/image/fon1.jpg")).getImage();
+    Image fon = new ImageIcon(getClass().getResource("/image/fon"+back+".jpg")).getImage();
     public final static int pozitions[] = {150, 250, 350};
     int pIndex = 0;
-    Zombies zombies;
 
     String options[] = {"Play","Prizes","Exit"};
 
     Timer timer = new Timer(100, this);
-
-    public Menu(Zombies zombies) {
-        this.zombies = zombies;
-    }
 
     public void paint(Graphics g) {
         g.drawImage(fon, 0, 0, null);

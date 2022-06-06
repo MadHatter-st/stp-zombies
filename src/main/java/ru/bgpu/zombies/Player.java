@@ -8,9 +8,8 @@ import javax.swing.ImageIcon;
 
 public class Player {
     
-    Image fon = new ImageIcon(getClass().getResource("/image/player.png")).getImage();
-
-    Image fon1 = new ImageIcon(getClass().getResource("/image/player-m-0.png")).getImage();
+    Image fon = new ImageIcon(getClass().getResource("/image/player_0.png")).getImage();
+    Image fon1 = new ImageIcon(getClass().getResource("/image/player_1.png")).getImage();
     Image f1 = new ImageIcon(getClass().getResource("/image/fire1.png")).getImage();
     Image f2 = new ImageIcon(getClass().getResource("/image/fire2.png")).getImage();
     Image f3 = new ImageIcon(getClass().getResource("/image/fire3.png")).getImage();
@@ -20,7 +19,7 @@ public class Player {
     
     int pIndex = 0;
     boolean lock = false;
-    boolean max = false;
+    int max = 0;
     int fireIndex = -1;
     
     Zombies zombies;
@@ -29,9 +28,8 @@ public class Player {
         this.zombies = zombies;
     }
 
-
     public void paint(Graphics g) {
-        if (max) {
+        if(max==1){
             g.drawImage(fon1, 50, pozitions[pIndex], null);
         } else {
             g.drawImage(fon, 50, pozitions[pIndex], null);
@@ -64,7 +62,6 @@ public class Player {
 
     public void ult() {
         if(lock) return;
-//        max=true;
         zombies.boom();
     }
 

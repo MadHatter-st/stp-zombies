@@ -15,7 +15,7 @@ public class Live {
     Image d = new ImageIcon(getClass().getResource("/image/d.png")).getImage();
     
     boolean go = false;
-    int live = 5;
+    int live = 1;
     int money = 0;
 
     int charge = 0;

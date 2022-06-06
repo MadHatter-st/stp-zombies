@@ -10,17 +10,24 @@ import java.awt.event.ActionListener;
 public class Prizes implements ActionListener {
 
     public int globalMoney;
-
+    int Pskin = 0;
+    int Pback = 0;
     Image hand = new ImageIcon(getClass().getResource("/image/hand.png")).getImage();
-    Image fon = new ImageIcon(getClass().getResource("/image/fon1.jpg")).getImage();
+    Image fon = new ImageIcon(getClass().getResource("/image/fon"+Pback+".jpg")).getImage();
 
-    public final static int pozitions[] = {150, 250, 350};
+    public final static int pozitions[] = {150, 250, 450};
+
+    boolean skin = false;
+    boolean back = false;
 
     int pIndex = 0;
 
-    Zombies zombies;
+    int yIndex = 0;
 
-    String options[] = {"Player skin: 500$","New background: 1000$","Return to the menu"};
+    Zombies zombies;
+    String options[] = {"Player skin: 1000$","New background: 1000$","Return to the menu"};
+    String options1[][] = {{"Player skin(1)","Background(1)"},
+                           {"Player skin(2)","Background(2)"}};
 
     Timer timer = new Timer(100, this);
 
@@ -36,19 +43,45 @@ public class Prizes implements ActionListener {
         g.setColor(Color.GREEN);
         g.drawString(Integer.toString(globalMoney), Zombies.Z_WIDTH-150, 37);
         g.drawImage(hand, 50, pozitions[pIndex]-50, null);
-        g.drawString(options[0], 150, pozitions[0]);
-        g.drawString(options[1], 150, pozitions[1]);
+        if(!skin){
+            g.setColor(Color.RED);
+            g.drawString(options[0], 150, pozitions[0]);
+        }
+        else {
+            g.setColor(Color.GREEN);
+            g.drawString(options1[Pskin][0], 150, pozitions[0]);
+        }
+        if(!back){
+            g.setColor(Color.RED);
+            g.drawString(options[1], 150, pozitions[1]);
+        }
+        else {
+            g.setColor(Color.GREEN);
+            g.drawString(options1[Pback][1], 150, pozitions[1]);
+        }
+        g.setColor(Color.WHITE);
         g.drawString(options[2], 150, pozitions[2]);
-
     }
 
     public void choise(){
         switch (pIndex){
             case 0:
-
+                if(globalMoney>=100&&!skin){
+                    globalMoney-=100;
+                    skin = true;
+                }else {
+                    Pskin = Pskin==0?1:0;
+                    zombies.Player = Pskin;
+                }
                 break;
             case 1:
-
+                if(globalMoney>=100&&!back){
+                    globalMoney-=100;
+                    back = true;
+                }else {
+                    Pback = Pback==0?1:0;
+                    zombies.stage = Pback;
+                }
                 break;
             case 2:
                 Zombies.state = Zombies.STATE.MENU;
@@ -61,6 +94,13 @@ public class Prizes implements ActionListener {
     public void down() {
         if(++pIndex >= pozitions.length) pIndex = pozitions.length-1;
     }
+
+//    public void left() {
+//        if(--yIndex < 0) yIndex = 0;
+//    }
+//    public void right() {
+//        if(++yIndex >= Pskin.length) yIndex = Pskin.length-1;
+//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
