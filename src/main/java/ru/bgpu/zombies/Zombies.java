@@ -34,6 +34,7 @@ public final static int pozitions[] = {150, 250, 350};
     boolean end = false;
     boolean stop = false;
 
+    int count = -1;
 
     int stage = 0;
     int Player = 0;
@@ -92,6 +93,7 @@ public final static int pozitions[] = {150, 250, 350};
                     live.paint(g);
                     break;
                 case MENU:
+                    if(count%270000==0)playSound("muzon.wav");
                     live.go = false;
                     menu.back = stage;
                     menu.paint(g);
@@ -139,6 +141,7 @@ public final static int pozitions[] = {150, 250, 350};
         switch (state) {
             case PLAY:
                 fonPanel.repaint();
+                count++;
                 if (iteration++ > interval) {
                     Random r = new Random();
                     int count = r.nextInt(maxCount);
@@ -152,15 +155,19 @@ public final static int pozitions[] = {150, 250, 350};
                 }
                 break;
             case MENU:
+                count++;
                 fonPanel.repaint();
                 break;
             case PAUSE:
+                count++;
                 fonPanel.repaint();
                 break;
             case PRIZES:
+                count++;
                 fonPanel.repaint();
                 break;
             case GO:
+                count++;
                 fonPanel.repaint();
                 break;
         }
@@ -268,9 +275,7 @@ public final static int pozitions[] = {150, 250, 350};
 
     public void boom(){
         if(live.charge==10){
-            for (int i =0; i<zombis.size();i++){
-                live.up();
-            }
+            live.money += zombis.size()*100/3;
             zombis.clear();
             live.charge=0;
         }
@@ -306,3 +311,4 @@ public final static int pozitions[] = {150, 250, 350};
     }).start();
   }
 }
+

@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class Prizes implements ActionListener {
 
-    public int globalMoney;
+    public int globalMoney = 10000;
     int Pskin = 0;
     int Pback = 0;
     Image hand = new ImageIcon(getClass().getResource("/image/hand.png")).getImage();
