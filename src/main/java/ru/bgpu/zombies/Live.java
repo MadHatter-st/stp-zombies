@@ -53,7 +53,7 @@ public class Live {
     }
     
     public void up() {
-        money += 100/3;
+        money += 50/4;
     }
 
 }

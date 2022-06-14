@@ -275,7 +275,7 @@ public final static int pozitions[] = {150, 250, 350};
 
     public void boom(){
         if(live.charge==10){
-            live.money += zombis.size()*100/3;
+            live.money += zombis.size()*100;
             zombis.clear();
             live.charge=0;
         }

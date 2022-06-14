@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class Prizes implements ActionListener {
 
-    public int globalMoney = 10000;
+    public int globalMoney = 0;
     int Pskin = 0;
     int Pback = 0;
     Image hand = new ImageIcon(getClass().getResource("/image/hand.png")).getImage();
@@ -26,7 +26,7 @@ public class Prizes implements ActionListener {
     int yIndex = 0;
 
     Zombies zombies;
-    String options[] = {"Player skin: 1000$","New background: 1000$","Return to the menu"};
+    String options[] = {"Player skin: 1000$","New background: 1500$","Return to the menu"};
     String options1[][] = {{"Player skin(1)","Background(1)"},
                            {"Player skin(2)","Background(2)"}};
 
@@ -71,21 +71,25 @@ public class Prizes implements ActionListener {
     public void choise(){
         switch (pIndex){
             case 0:
-                if(globalMoney>=100&&!skin){
-                    globalMoney-=100;
+                if(globalMoney>=1000&&!skin){
+                    globalMoney-=1000;
                     skin = true;
                 }else {
+                    if(skin){
                     Pskin = Pskin==0?1:0;
                     zombies.Player = Pskin;
+                    }
                 }
                 break;
             case 1:
-                if(globalMoney>=100&&!back){
-                    globalMoney-=100;
+                if(globalMoney>=1500&&!back){
+                    globalMoney-=1500;
                     back = true;
                 }else {
-                    Pback = Pback==0?1:0;
-                    zombies.stage = Pback;
+                    if(back){
+                        Pback = Pback==0?1:0;
+                        zombies.stage = Pback;
+                    }
                 }
                 break;
             case 2:
